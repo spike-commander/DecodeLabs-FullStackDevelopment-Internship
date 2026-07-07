@@ -1,4 +1,4 @@
-# Build the Future — Landing Page
+# Project 1 -> Build the Future — Landing Page
 
 A single-page, fully responsive landing page built with raw **HTML5**, **CSS3**, and **native JavaScript** — no frameworks, no external CSS/JS libraries.
 
