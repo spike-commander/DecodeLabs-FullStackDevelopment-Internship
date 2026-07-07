@@ -1,0 +1,1126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Build the Future</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --primary: #A5856F;
+      --secondary: #A0D4E0;
+      --bg: #F2F0EA;
+      --text: #2C2C2C;
+      --text-light: #6B6B6B;
+      --white: #FFFFFF;
+      --shadow: 0 2px 12px rgba(0,0,0,0.06);
+      --radius: 12px;
+      --font-heading: 'Inter', sans-serif;
+      --font-body: 'Roboto', sans-serif;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: var(--font-body);
+      font-weight: 400;
+      color: var(--text);
+      background: var(--bg);
+      line-height: 1.6;
+      min-height: 100vh;
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      grid-template-columns: 1fr;
+      grid-template-areas:
+        "header"
+        "main"
+        "footer";
+    }
+
+    h1, h2, h3, h4 {
+      font-family: var(--font-heading);
+      font-weight: 700;
+      line-height: 1.2;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    ul { list-style: none; }
+
+    .container {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1rem;
+    }
+
+    /* ===== HEADER / NAV ===== */
+    header {
+      grid-area: header;
+      background: var(--white);
+      box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 56px;
+      padding: 0 1rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .logo {
+      font-family: var(--font-heading);
+      font-weight: 700;
+      font-size: clamp(1.1rem, 3vw, 1.4rem);
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .logo-icon {
+      width: 32px;
+      height: 32px;
+      background: var(--primary);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--white);
+      font-size: 1.1rem;
+    }
+
+    .nav-links {
+      display: none;
+      flex-direction: column;
+      position: absolute;
+      top: 56px;
+      left: 0;
+      right: 0;
+      background: var(--white);
+      padding: 1rem;
+      box-shadow: var(--shadow);
+      gap: 0.25rem;
+    }
+
+    .nav-links.open {
+      display: flex;
+    }
+
+    .nav-links a {
+      padding: 0.75rem 1rem;
+      border-radius: 8px;
+      font-family: var(--font-body);
+      font-weight: 400;
+      font-size: 0.95rem;
+      transition: background 0.2s, color 0.2s;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active {
+      background: var(--primary);
+      color: var(--white);
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      font-family: var(--font-body);
+      font-weight: 500;
+      font-size: 0.9rem;
+      padding: 0.6rem 1.25rem;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      transition: background 0.25s, transform 0.15s, box-shadow 0.25s;
+    }
+
+    .btn:active {
+      transform: scale(0.97);
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: var(--white);
+    }
+
+    .btn-primary:hover {
+      background: #957A64;
+      box-shadow: 0 4px 14px rgba(165,133,111,0.35);
+    }
+
+    .btn-secondary {
+      background: var(--secondary);
+      color: var(--text);
+    }
+
+    .btn-secondary:hover {
+      background: #8CC4D0;
+      box-shadow: 0 4px 14px rgba(160,212,224,0.35);
+    }
+
+    .btn-outline {
+      background: transparent;
+      border: 2px solid var(--primary);
+      color: var(--primary);
+    }
+
+    .btn-outline:hover {
+      background: var(--primary);
+      color: var(--white);
+    }
+
+    .hamburger {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 4px;
+    }
+
+    .hamburger span {
+      display: block;
+      width: 24px;
+      height: 2.5px;
+      background: var(--text);
+      border-radius: 2px;
+      transition: transform 0.3s, opacity 0.3s;
+    }
+
+    .hamburger.active span:nth-child(1) {
+      transform: translateY(7.5px) rotate(45deg);
+    }
+
+    .hamburger.active span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .hamburger.active span:nth-child(3) {
+      transform: translateY(-7.5px) rotate(-45deg);
+    }
+
+    /* ===== HERO ===== */
+    .hero {
+      grid-area: hero;
+      background: linear-gradient(135deg, var(--primary) 0%, #8B725C 100%);
+      color: var(--white);
+      padding: 3rem 1rem;
+      text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 360px;
+    }
+
+    .hero-content {
+      max-width: 700px;
+    }
+
+    .hero h1 {
+      font-size: clamp(2rem, 6vw, 3.25rem);
+      margin-bottom: 1rem;
+    }
+
+    .hero p {
+      font-size: clamp(0.95rem, 2.5vw, 1.15rem);
+      font-weight: 300;
+      opacity: 0.9;
+      margin-bottom: 2rem;
+      max-width: 500px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1rem;
+    }
+
+    .hero .btn {
+      font-size: 1rem;
+      padding: 0.8rem 2rem;
+    }
+
+    .hero .btn-secondary {
+      background: var(--white);
+      color: var(--primary);
+    }
+
+    .hero .btn-secondary:hover {
+      background: var(--secondary);
+      color: var(--text);
+    }
+
+    .hero-graphic {
+      display: none;
+    }
+
+    /* ===== CONTENT LAYOUT ===== */
+    .content-layout {
+      grid-area: content;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2rem;
+      padding: 2rem 1rem;
+      max-width: 1200px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    .main-content h2 {
+      font-size: clamp(1.3rem, 3.5vw, 1.8rem);
+      margin-bottom: 1.5rem;
+      color: var(--primary);
+    }
+
+    .card-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.25rem;
+    }
+
+    .card {
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 1.25rem;
+      box-shadow: var(--shadow);
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      transition: transform 0.25s, box-shadow 0.25s;
+      cursor: pointer;
+    }
+
+    .card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 24px rgba(0,0,0,0.08);
+    }
+
+    .card.expanded {
+      box-shadow: 0 6px 28px rgba(165,133,111,0.18);
+    }
+
+    .card-image {
+      width: 100%;
+      height: 160px;
+      background: linear-gradient(135deg, var(--secondary) 0%, #B8DFE8 100%);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--white);
+      font-size: 2rem;
+      font-weight: 300;
+      overflow: hidden;
+    }
+
+    .card-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .card h3 {
+      font-size: clamp(1rem, 2.5vw, 1.2rem);
+      font-weight: 600;
+    }
+
+    .card p {
+      font-size: 0.9rem;
+      color: var(--text-light);
+      line-height: 1.5;
+    }
+
+    .card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: auto;
+      padding-top: 0.5rem;
+    }
+
+    .card-icon {
+      width: 24px;
+      height: 24px;
+      background: var(--primary);
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--white);
+      font-size: 0.7rem;
+      flex-shrink: 0;
+    }
+
+    .card-action {
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    .card-action::after {
+      content: "→";
+      transition: transform 0.2s;
+    }
+
+    .card:hover .card-action::after {
+      transform: translateX(4px);
+    }
+
+    .card-expand-content {
+      display: none;
+      padding-top: 0.75rem;
+      border-top: 1px solid var(--bg);
+      font-size: 0.9rem;
+      color: var(--text-light);
+    }
+
+    .card.expanded .card-expand-content {
+      display: block;
+      animation: fadeSlideIn 0.3s ease;
+    }
+
+    @keyframes fadeSlideIn {
+      from { opacity: 0; transform: translateY(-8px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ===== SIDEBAR ===== */
+    .sidebar {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+
+    .sidebar-box {
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 1.25rem;
+      box-shadow: var(--shadow);
+      border-left: 4px solid var(--primary);
+    }
+
+    .sidebar-box h3 {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 0.75rem;
+      color: var(--primary);
+    }
+
+    .sidebar-box ul {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .sidebar-box a {
+      font-size: 0.9rem;
+      padding: 0.4rem 0;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--text-light);
+      transition: color 0.2s;
+    }
+
+    .sidebar-box a::before {
+      content: "›";
+      color: var(--primary);
+      font-weight: 700;
+      font-size: 1.1rem;
+    }
+
+    .sidebar-box a:hover {
+      color: var(--primary);
+    }
+
+    .sidebar-box.info {
+      border-left-color: var(--secondary);
+    }
+
+    .sidebar-box.info h3 {
+      color: #6B9EAA;
+    }
+
+    /* ===== FOOTER ===== */
+    footer {
+      grid-area: footer;
+      background: var(--text);
+      color: rgba(255,255,255,0.7);
+      padding: 2rem 1rem;
+      text-align: center;
+      font-size: 0.85rem;
+    }
+
+    footer .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    footer a {
+      color: var(--secondary);
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    /* ===== TABLET (768px+) ===== */
+    @media (min-width: 768px) {
+      nav {
+        height: 50px;
+      }
+
+      .hamburger {
+        display: none;
+      }
+
+      .nav-links {
+        display: flex;
+        flex-direction: row;
+        position: static;
+        background: transparent;
+        padding: 0;
+        box-shadow: none;
+        gap: 0.25rem;
+      }
+
+      .nav-links a {
+        padding: 0.5rem 1rem;
+      }
+
+      .hero {
+        padding: 4rem 2rem;
+      }
+
+      .hero-graphic {
+        display: block;
+        width: 100%;
+        max-width: 400px;
+        height: 200px;
+        background: rgba(255,255,255,0.12);
+        border-radius: var(--radius);
+        margin: 1.5rem auto 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1rem;
+        opacity: 0.7;
+        backdrop-filter: blur(2px);
+      }
+
+      .content-layout {
+        padding: 2.5rem 2rem;
+      }
+
+      .card-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .sidebar {
+        flex-direction: row;
+        flex-wrap: wrap;
+      }
+
+      .sidebar-box {
+        flex: 1;
+        min-width: 200px;
+      }
+    }
+
+    /* ===== DESKTOP (1024px+) ===== */
+    @media (min-width: 1024px) {
+      .content-layout {
+        grid-template-columns: 1fr 320px;
+        gap: 2.5rem;
+        padding: 3rem 2rem;
+      }
+
+      .sidebar {
+        flex-direction: column;
+      }
+
+      .sidebar-box {
+        flex: none;
+      }
+
+      .card-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .hero {
+        min-height: 360px;
+        padding: 4rem 2rem;
+      }
+
+      .hero-content {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 2rem;
+        max-width: 1000px;
+        align-items: center;
+        text-align: left;
+      }
+
+      .hero-text {
+        text-align: left;
+      }
+
+      .hero-text p {
+        margin-left: 0;
+      }
+
+      .hero-actions {
+        justify-content: flex-start;
+      }
+
+      .hero-graphic {
+        margin: 0;
+        max-width: 100%;
+        height: 220px;
+      }
+
+      footer .container {
+        flex-direction: row;
+        justify-content: space-between;
+      }
+    }
+
+    /* ===== MODAL ===== */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.5);
+      z-index: 300;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+    }
+    .modal-overlay.open {
+      display: flex;
+    }
+    .modal {
+      background: var(--white);
+      border-radius: var(--radius);
+      max-width: 560px;
+      width: 100%;
+      padding: 2rem;
+      box-shadow: 0 12px 40px rgba(0,0,0,0.2);
+      position: relative;
+      animation: fadeSlideIn 0.25s ease;
+    }
+    .modal h2 {
+      font-size: 1.4rem;
+      margin-bottom: 0.75rem;
+      color: var(--primary);
+    }
+    .modal p {
+      font-size: 0.95rem;
+      color: var(--text-light);
+      margin-bottom: 1.5rem;
+      line-height: 1.6;
+    }
+    .modal .btn-close {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: var(--bg);
+      border: none;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      font-size: 1.2rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s;
+    }
+    .modal .btn-close:hover {
+      background: #E5E3DD;
+    }
+    .modal-video-placeholder {
+      width: 100%;
+      height: 200px;
+      background: linear-gradient(135deg, var(--text) 0%, #444 100%);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--white);
+      font-size: 3rem;
+      margin-bottom: 1rem;
+    }
+    .modal-actions {
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+    }
+
+    /* ===== REDUCED MOTION ===== */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+
+    /* ===== FOCUS STYLES ===== */
+    :focus-visible {
+      outline: 3px solid var(--secondary);
+      outline-offset: 2px;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <nav aria-label="Main navigation">
+      <a href="#" class="logo" aria-label="Home">
+        <span class="logo-icon" aria-hidden="true">◆</span>
+        <span>BuildCo</span>
+      </a>
+
+      <ul class="nav-links" id="navLinks" role="menubar">
+        <li role="none"><a href="#home" role="menuitem" class="active">Home</a></li>
+        <li role="none"><a href="#features" role="menuitem">Features</a></li>
+        <li role="none"><a href="#contact" role="menuitem">Contact</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <button class="btn btn-primary" id="ctaNav">Get Started</button>
+        <button class="hamburger" id="hamburger" aria-label="Toggle navigation menu" aria-expanded="false">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero" id="home">
+      <div class="hero-content">
+        <div class="hero-text">
+          <h1>Build the Future</h1>
+          <p>Modern tools and expert guidance to bring your boldest ideas to life. Start your journey today.</p>
+          <div class="hero-actions">
+            <button class="btn btn-primary" id="heroCta">Learn More</button>
+            <button class="btn btn-secondary">Watch Demo</button>
+          </div>
+        </div>
+        <div class="hero-graphic" aria-label="Illustration showing abstract building blocks">
+          <span>◆  ◆  ◆</span>
+        </div>
+      </div>
+    </section>
+
+    <div class="content-layout" id="features">
+      <section class="main-content">
+        <h2>Our Platform</h2>
+        <div class="card-grid" id="cardGrid">
+          <article class="card" data-id="1">
+            <div class="card-image" aria-label="Image placeholder for Scalable Infrastructure">
+              <span>🏗</span>
+            </div>
+            <h3>Scalable Infrastructure</h3>
+            <p>Reliable cloud architecture that grows with your business, ensuring zero downtime.</p>
+            <div class="card-footer">
+              <span class="card-icon" aria-hidden="true">⚡</span>
+              <span class="card-action">Explore</span>
+            </div>
+            <div class="card-expand-content">
+              <p>Our infrastructure spans 12 global regions with automatic failover, load balancing, and real-time monitoring dashboards.</p>
+            </div>
+          </article>
+
+          <article class="card" data-id="2">
+            <div class="card-image" aria-label="Image placeholder for Intelligent Analytics">
+              <span>📊</span>
+            </div>
+            <h3>Intelligent Analytics</h3>
+            <p>Data-driven insights powered by machine learning to help you make smarter decisions.</p>
+            <div class="card-footer">
+              <span class="card-icon" aria-hidden="true">📈</span>
+              <span class="card-action">Explore</span>
+            </div>
+            <div class="card-expand-content">
+              <p>Real-time dashboards with predictive modeling, anomaly detection, and custom report generation tailored to your KPIs.</p>
+            </div>
+          </article>
+
+          <article class="card" data-id="3">
+            <div class="card-image" aria-label="Image placeholder for Developer Tools">
+              <span>🛠</span>
+            </div>
+            <h3>Developer Tools</h3>
+            <p>Powerful APIs, SDKs, and CI/CD pipelines designed for modern engineering teams.</p>
+            <div class="card-footer">
+              <span class="card-icon" aria-hidden="true">🔧</span>
+              <span class="card-action">Explore</span>
+            </div>
+            <div class="card-expand-content">
+              <p>Comprehensive SDKs in 8 languages, GraphQL and REST APIs, GitHub integration, and automated deployment workflows.</p>
+            </div>
+          </article>
+
+          <article class="card" data-id="4">
+            <div class="card-image" aria-label="Image placeholder for Security Suite">
+              <span>🔒</span>
+            </div>
+            <h3>Security Suite</h3>
+            <p>Enterprise-grade security with end-to-end encryption, audit logs, and compliance.</p>
+            <div class="card-footer">
+              <span class="card-icon" aria-hidden="true">🛡</span>
+              <span class="card-action">Explore</span>
+            </div>
+            <div class="card-expand-content">
+              <p>SOC 2 Type II certified with AES-256 encryption, role-based access control, and automated compliance reporting.</p>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <aside class="sidebar">
+        <div class="sidebar-box">
+          <h3>Quick Links</h3>
+          <ul>
+            <li><a href="#">Documentation</a></li>
+            <li><a href="#">API Reference</a></li>
+            <li><a href="#">Community Forum</a></li>
+            <li><a href="#">Status Page</a></li>
+            <li><a href="#">Release Notes</a></li>
+          </ul>
+        </div>
+        <div class="sidebar-box info" id="contact">
+          <h3>Contact Us</h3>
+          <ul>
+            <li><a href="mailto:hello@buildco.dev">hello@buildco.dev</a></li>
+            <li><a href="#">+1 (555) 123-4567</a></li>
+            <li><a href="#">San Francisco, CA</a></li>
+          </ul>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <footer>
+    <div class="container">
+      <span>&copy; 2026 BuildCo. All rights reserved.</span>
+      <div class="footer-links">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
+        <a href="#">Accessibility</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ===== MODAL ===== -->
+  <div class="modal-overlay" id="modalOverlay" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal">
+      <button class="btn-close" id="modalClose" aria-label="Close modal">&times;</button>
+      <div id="modalBody"></div>
+    </div>
+  </div>
+
+  <script>
+    (function() {
+      'use strict';
+
+      // ===== State =====
+      const state = {
+        menuOpen: false,
+        activeNav: 'home',
+        expandedCard: null
+      };
+
+      // ===== DOM refs =====
+      const hamburger = document.getElementById('hamburger');
+      const navLinks = document.getElementById('navLinks');
+      const navAnchors = navLinks.querySelectorAll('a');
+      const cards = document.querySelectorAll('.card');
+      const ctaNav = document.getElementById('ctaNav');
+      const heroCta = document.getElementById('heroCta');
+      const watchDemo = document.querySelector('.hero .btn-secondary');
+      const logo = document.querySelector('.logo');
+      const sidebarLinks = document.querySelectorAll('.sidebar-box a');
+      const footerLinks = document.querySelectorAll('.footer-links a');
+      const modalOverlay = document.getElementById('modalOverlay');
+      const modalBody = document.getElementById('modalBody');
+      const modalClose = document.getElementById('modalClose');
+
+      // ===== Helpers =====
+      function closeMenu() {
+        state.menuOpen = false;
+        hamburger.classList.remove('active');
+        hamburger.setAttribute('aria-expanded', 'false');
+        navLinks.classList.remove('open');
+      }
+
+      function openMenu() {
+        state.menuOpen = true;
+        hamburger.classList.add('active');
+        hamburger.setAttribute('aria-expanded', 'true');
+        navLinks.classList.add('open');
+      }
+
+      function toggleMenu() {
+        state.menuOpen ? closeMenu() : openMenu();
+      }
+
+      function setActiveNav(href) {
+        navAnchors.forEach(function(a) {
+          a.classList.remove('active');
+          if (a.getAttribute('href') === href) {
+            a.classList.add('active');
+          }
+        });
+        state.activeNav = href.replace('#', '');
+      }
+
+      function collapseAllCards() {
+        cards.forEach(function(c) { c.classList.remove('expanded'); });
+        state.expandedCard = null;
+      }
+
+      function toggleCard(card) {
+        if (card.classList.contains('expanded')) {
+          card.classList.remove('expanded');
+          state.expandedCard = null;
+        } else {
+          collapseAllCards();
+          card.classList.add('expanded');
+          state.expandedCard = card.getAttribute('data-id');
+        }
+      }
+
+      function showNotification(msg) {
+        var old = document.querySelector('.toast-notification');
+        if (old) old.remove();
+        var toast = document.createElement('div');
+        toast.className = 'toast-notification';
+        toast.setAttribute('role', 'status');
+        toast.setAttribute('aria-live', 'polite');
+        toast.textContent = msg;
+        Object.assign(toast.style, {
+          position: 'fixed',
+          bottom: '1.5rem',
+          left: '50%',
+          transform: 'translateX(-50%)',
+          background: 'var(--text)',
+          color: '#fff',
+          padding: '0.75rem 1.5rem',
+          borderRadius: '8px',
+          fontSize: '0.9rem',
+          zIndex: '200',
+          boxShadow: '0 4px 20px rgba(0,0,0,0.15)',
+          opacity: '0',
+          transition: 'opacity 0.3s ease'
+        });
+        document.body.appendChild(toast);
+        requestAnimationFrame(function() { toast.style.opacity = '1'; });
+        setTimeout(function() {
+          toast.style.opacity = '0';
+          setTimeout(function() { toast.remove(); }, 300);
+        }, 2200);
+      }
+
+      function openModal(html) {
+        modalBody.innerHTML = html;
+        modalOverlay.classList.add('open');
+        document.body.style.overflow = 'hidden';
+      }
+
+      function closeModal() {
+        modalOverlay.classList.remove('open');
+        document.body.style.overflow = '';
+      }
+
+      // ===== Modal: Watch Demo =====
+      watchDemo.addEventListener('click', function() {
+        openModal(
+          '<div class="modal-video-placeholder" aria-label="Demo video player">&#9654;</div>' +
+          '<h2 id="modalTitle">Product Demo</h2>' +
+          '<p>See how BuildCo helps teams ship faster, scale confidently, and stay secure. This simulation shows our core workflow in under 2 minutes.</p>' +
+          '<div class="modal-actions">' +
+          '<button class="btn btn-primary" id="modalPlayBtn">&#9654; Play Demo</button>' +
+          '<button class="btn btn-outline" id="modalScheduleBtn">Schedule Walkthrough</button>' +
+          '</div>'
+        );
+      });
+
+      // ===== Modal: Event delegation for Play/Schedule =====
+      modalBody.addEventListener('click', function(e) {
+        if (e.target.id === 'modalPlayBtn') {
+          showNotification('Demo is starting... (simulated)');
+        }
+        if (e.target.id === 'modalScheduleBtn') {
+          showNotification('Redirecting to scheduling page...');
+          closeModal();
+        }
+      });
+
+      // ===== Modal: Close handlers =====
+      modalClose.addEventListener('click', closeModal);
+      modalOverlay.addEventListener('click', function(e) {
+        if (e.target === modalOverlay) closeModal();
+      });
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && modalOverlay.classList.contains('open')) closeModal();
+      });
+
+      // ===== Logo: scroll to top =====
+      logo.addEventListener('click', function(e) {
+        e.preventDefault();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        setActiveNav('#home');
+      });
+
+      // ===== Nav anchors =====
+      navAnchors.forEach(function(a) {
+        a.addEventListener('click', function(e) {
+          setActiveNav(a.getAttribute('href'));
+          if (state.menuOpen) closeMenu();
+        });
+      });
+
+      // ===== Cards =====
+      cards.forEach(function(card) {
+        card.addEventListener('click', function(e) {
+          toggleCard(card);
+        });
+        card.addEventListener('keydown', function(e) {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            toggleCard(card);
+          }
+        });
+        card.setAttribute('tabindex', '0');
+        card.setAttribute('role', 'button');
+      });
+
+      // ===== Close menu on Escape =====
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && state.menuOpen) closeMenu();
+      });
+
+      // ===== Close menu on outside click =====
+      document.addEventListener('click', function(e) {
+        if (state.menuOpen && !e.target.closest('nav')) closeMenu();
+      });
+
+      // ===== CTA buttons =====
+      ctaNav.addEventListener('click', function() {
+        document.getElementById('features').scrollIntoView({ behavior: 'smooth' });
+        showNotification('Welcome! Explore our platform below.');
+      });
+
+      heroCta.addEventListener('click', function() {
+        document.getElementById('features').scrollIntoView({ behavior: 'smooth' });
+        showNotification('Scroll down to see what we offer.');
+      });
+
+      // ===== Sidebar links =====
+      var sidebarActions = {
+        'Documentation': 'Opening Documentation hub...',
+        'API Reference': 'Loading API Reference...',
+        'Community Forum': 'Connecting to Community Forum...',
+        'Status Page': 'Checking system status...',
+        'Release Notes': 'Fetching latest Release Notes...'
+      };
+
+      sidebarLinks.forEach(function(link) {
+        link.addEventListener('click', function(e) {
+          var text = link.textContent.trim();
+          if (link.getAttribute('href') === 'mailto:hello@buildco.dev') return;
+          e.preventDefault();
+          if (text === '+1 (555) 123-4567') {
+            showNotification('Calling +1 (555) 123-4567... (simulated)');
+            return;
+          }
+          if (text === 'San Francisco, CA') {
+            showNotification('Opening map for San Francisco, CA...');
+            return;
+          }
+          if (sidebarActions[text]) {
+            showNotification(sidebarActions[text]);
+          }
+        });
+      });
+
+      // ===== Footer links =====
+      footerLinks.forEach(function(link) {
+        link.addEventListener('click', function(e) {
+          e.preventDefault();
+          var text = link.textContent.trim();
+          showNotification('Opening ' + text + ' page...');
+        });
+      });
+
+      // ===== Intersection Observer for active nav state =====
+      if ('IntersectionObserver' in window) {
+        var sections = document.querySelectorAll('section[id]');
+        var obs = new IntersectionObserver(function(entries) {
+          entries.forEach(function(entry) {
+            if (entry.isIntersecting) {
+              setActiveNav('#' + entry.target.getAttribute('id'));
+            }
+          });
+        }, { threshold: 0.4 });
+        sections.forEach(function(s) { obs.observe(s); });
+      }
+
+    })();
+  </script>
+
+</body>
+</html>
