@@ -1,0 +1,149 @@
+================================================================================
+                    BACKEND API - COMMANDS & EXAMPLES
+================================================================================
+
+BASE URL: http://localhost:3000
+
+--------------------------------------------------------------------------------
+1. GET /items
+--------------------------------------------------------------------------------
+Purpose: Retrieve all items
+
+Method: GET
+URL: http://localhost:3000/items
+Body: None
+
+Example Response:
+[
+  {
+    "id": "550e8400-e29b-41d4-a716-446655440000",
+    "name": "Laptop",
+    "price": 999.99,
+    "category": "Electronics",
+    "inStock": true
+  },
+  {
+    "id": "550e8400-e29b-41d4-a716-446655440001",
+    "name": "Headphones",
+    "price": 149.50,
+    "category": "Electronics",
+    "inStock": true
+  }
+]
+
+--------------------------------------------------------------------------------
+2. POST /items
+--------------------------------------------------------------------------------
+Purpose: Create a new item
+
+Method: POST
+URL: http://localhost:3000/items
+Content-Type: application/json
+
+Body (JSON):
+{
+  "name": "Wireless Mouse",
+  "price": 29.99,
+  "category": "Electronics",
+  "inStock": true
+}
+
+Required Fields:
+  - name     (string)  : Item name
+  - price    (number)  : Price (must be >= 0)
+  - category (string)  : Item category
+
+Optional Fields:
+  - inStock  (boolean) : Stock status (default: true)
+
+Example Response (201 Created):
+{
+  "id": "550e8400-e29b-41d4-a716-446655440002",
+  "name": "Wireless Mouse",
+  "price": 29.99,
+  "category": "Electronics",
+  "inStock": true
+}
+
+--------------------------------------------------------------------------------
+3. PUT /items/{id}
+--------------------------------------------------------------------------------
+Purpose: Update an existing item
+
+Method: PUT
+URL: http://localhost:3000/items/{id}
+Content-Type: application/json
+
+Replace {id} with an actual item ID from GET /items
+
+Body (JSON):
+{
+  "name": "Wireless Mouse Pro",
+  "price": 49.99,
+  "category": "Electronics",
+  "inStock": false
+}
+
+Example:
+  PUT http://localhost:3000/items/550e8400-e29b-41d4-a716-446655440002
+
+Response: 204 No Content (no body returned)
+
+--------------------------------------------------------------------------------
+4. DELETE /items/{id}
+--------------------------------------------------------------------------------
+Purpose: Remove an item
+
+Method: DELETE
+URL: http://localhost:3000/items/{id}
+Body: None
+
+Replace {id} with an actual item ID from GET /items
+
+Example:
+  DELETE http://localhost:3000/items/550e8400-e29b-41d4-a716-446655440002
+
+Response: 204 No Content (no body returned)
+
+--------------------------------------------------------------------------------
+ERROR RESPONSES
+--------------------------------------------------------------------------------
+
+400 Bad Request:
+{
+  "error": "Validation failed: \"name\" is required and must be a string"
+}
+
+404 Not Found:
+{
+  "error": "Item with id \"invalid-id\" not found"
+}
+
+500 Internal Server Error:
+{
+  "error": "Internal server error: an unexpected failure occurred"
+}
+
+--------------------------------------------------------------------------------
+QUICK TEST COMMANDS (Thunder Client / Postman / curl)
+--------------------------------------------------------------------------------
+
+GET All Items:
+  Method: GET
+  URL: http://localhost:3000/items
+
+Create Item:
+  Method: POST
+  URL: http://localhost:3000/items
+  Body: {"name":"Mouse","price":29.99,"category":"Electronics"}
+
+Update Item:
+  Method: PUT
+  URL: http://localhost:3000/items/YOUR_ITEM_ID_HERE
+  Body: {"name":"Mouse Pro","price":49.99,"category":"Electronics","inStock":false}
+
+Delete Item:
+  Method: DELETE
+  URL: http://localhost:3000/items/YOUR_ITEM_ID_HERE
+
+================================================================================
