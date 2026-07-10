@@ -14,10 +14,10 @@ This space is systematically organized by milestones, tracking my evolution from
     *   **Phase:** Interface Stage 
     *   **Focus:** Core Frontend Fundamentals, Native Layout Architecture, & 2025 Aesthetic Compliances.
     *   **Status:** ✅ Completed
-*   **`Project-02-Database-Integration/`** *(Upcoming)*
+*   **`Project-02-Backend-API/`**
     *   **Phase:** Data Systems Stage
-    *   **Focus:** Server management, API structures, and relational/non-relational database tracking.
-    *   **Status:** ⏳ In Progress
+    *   **Focus:** Backend architecture, RESTful API development, server-side routing, and data validation.
+    *   **Status:** ✅ Completed
 
 ---
 
@@ -41,6 +41,17 @@ Every project committed to this repository follows rigid industry-standard manda
     *   Framework-free state changes.
 
 *📂 [Navigate to Project 1 Folder for full source code, preview screenshots, and design notes.](./Project-01-Responsive-UI/)*
+
+### Milestone 2: Backend API Development (The Nervous System)
+*   **Objective:** Develop a reliable, lightweight Backend API using RESTful principles to process application logic and manage data flow.
+*   **Tech Stack:** Node.js, Express.js, UUID, In-Memory Data Store.
+*   **Key Attributes Met:**
+    *   Stateless RESTful architecture with JSON data exchange.
+    *   Two-layer validation (Syntactic + Semantic).
+    *   Proper HTTP status codes (200, 201, 204, 400, 404, 500).
+    *   CRUD operations: GET, POST, PUT, DELETE on `/items` resource.
+
+*📂 [Navigate to Project 2 Folder for full source code and API documentation.](./Project-02-Backend-API/)*
 
 ---
 
