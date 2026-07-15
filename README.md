@@ -18,6 +18,10 @@ This space is systematically organized by milestones, tracking my evolution from
     *   **Phase:** Data Systems Stage
     *   **Focus:** Backend architecture, RESTful API development, server-side routing, and data validation.
     *   **Status:** ✅ Completed
+*   **`Project-03-Database-Integration/`**
+    *   **Phase:** Database Systems Stage
+    *   **Focus:** PostgreSQL database integration, raw SQL CRUD operations, parameterized queries, and relational data modeling.
+    *   **Status:** ✅ Completed
 
 ---
 
@@ -52,6 +56,20 @@ Every project committed to this repository follows rigid industry-standard manda
     *   CRUD operations: GET, POST, PUT, DELETE on `/items` resource.
 
 *📂 [Navigate to Project 2 Folder for full source code and API documentation.](./Project-02-Backend-API/)*
+
+### Milestone 3: Database Integration (The Persistence Layer)
+*   **Objective:** Build a production-ready database integration service using PostgreSQL and raw SQL with a stateless RESTful API.
+*   **Tech Stack:** Node.js, Express.js, PostgreSQL, Native `pg` Driver.
+*   **Key Attributes Met:**
+    *   PostgreSQL connection pool via native `pg.Pool`.
+    *   Parameterized queries preventing SQL injection.
+    *   Full CRUD: POST, GET, PUT, DELETE on `/api/items` with relational JOINs.
+    *   Structured error handling for unique, check, and foreign key constraint violations.
+    *   `.env`-based configuration with `dotenv`.
+
+*📂 [Navigate to Project 3 Folder for full source code and API documentation.](./Project-03-Database-Integration/)*
+
+
 
 ---
 
